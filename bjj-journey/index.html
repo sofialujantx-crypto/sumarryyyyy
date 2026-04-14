@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia Lujan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fdf8f5;
+            --card: rgba(0,0,0,0.02);
+            --border: rgba(0,0,0,0.06);
+            --text: #6b5c6b;
+            --text-light: #9a8a9a;
+            --white: #2d2433;
+            --accent: #d4618c;
+            --accent2: #9b7cc4;
+            --glow: rgba(212,97,140,0.06);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+
+        /* Grain overlay */
+        body::after { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.015; z-index: 9999; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); }
+
+        /* Nav */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 2rem; display: flex; justify-content: center; gap: 0.2rem; background: rgba(253,248,245,0.85); backdrop-filter: blur(24px); border-bottom: 1px solid var(--border); }
+        nav a { color: var(--text-light); text-decoration: none; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 3px; padding: 8px 18px; border-radius: 8px; transition: all 0.25s; font-weight: 500; }
+        nav a:hover { color: var(--white); }
+        nav a.active { color: var(--accent); background: var(--glow); }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 8rem 2rem 6rem; position: relative; }
+        .hero-glow { position: absolute; top: 20%; left: 50%; transform: translateX(-50%); width: 500px; height: 500px; background: radial-gradient(circle, var(--glow) 0%, transparent 70%); pointer-events: none; }
+        .hero-inner { max-width: 680px; text-align: center; position: relative; z-index: 1; }
+
+        .avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent2)); padding: 3px; margin: 0 auto 2.5rem; }
+        .avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+
+        .hero h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2.8rem, 7vw, 4.5rem); font-weight: 800; color: var(--white); letter-spacing: -1.5px; line-height: 1.05; margin-bottom: 1.2rem; }
+        .hero h1 .gradient { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { font-size: 1.05rem; color: var(--text-light); line-height: 1.8; max-width: 480px; margin: 0 auto 2.5rem; font-weight: 300; }
+
+        .tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .tag { font-size: 0.65rem; padding: 6px 14px; border-radius: 100px; border: 1px solid var(--border); color: var(--text-light); font-weight: 500; letter-spacing: 0.8px; transition: all 0.25s; }
+        .tag:hover { border-color: rgba(232,121,168,0.3); color: var(--accent); }
+
+        /* Section */
+        .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+        .section-line { width: 32px; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); margin: 0 auto 1rem; border-radius: 2px; }
+        .section-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 4px; color: var(--accent); font-weight: 600; text-align: center; margin-bottom: 0.6rem; }
+        .section-title { font-family: 'Outfit', sans-serif; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--white); font-weight: 700; text-align: center; letter-spacing: -0.5px; margin-bottom: 3rem; }
+
+        /* Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; text-decoration: none; color: inherit; display: block; position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,97,140,0.25), transparent); opacity: 0; transition: opacity 0.3s; }
+        .card:hover { background: rgba(255,255,255,0.04); transform: translateY(-2px); }
+        .card:hover::before { opacity: 1; }
+        .card-icon { font-size: 1.8rem; margin-bottom: 1.2rem; }
+        .card-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; color: var(--white); margin-bottom: 0.6rem; font-weight: 600; }
+        .card-desc { font-size: 0.82rem; color: var(--text-light); line-height: 1.7; }
+        .card-link { display: inline-block; margin-top: 1.2rem; font-size: 0.68rem; color: var(--accent); font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+
+        /* Stats */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 600px; margin: 0 auto; }
+        .stat { text-align: center; padding: 1.5rem 0; }
+        .stat-num { font-family: 'Outfit', sans-serif; font-size: 2.8rem; font-weight: 800; color: var(--white); line-height: 1; letter-spacing: -1px; }
+        .stat-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--text-light); margin-top: 8px; font-weight: 500; }
+
+        /* Social / Contact */
+        .social-grid { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem; }
+        .social-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; border: 1px solid var(--border); text-decoration: none; color: var(--text); font-size: 0.78rem; font-weight: 500; transition: all 0.25s; }
+        .social-btn:hover { border-color: rgba(232,121,168,0.3); color: var(--accent); background: var(--glow); transform: translateY(-1px); }
+        .social-btn .icon { font-size: 1.1rem; }
+        .contact-note { text-align: center; font-size: 0.82rem; color: var(--text-light); margin-top: 1.5rem; font-weight: 300; }
+        .contact-note a { color: var(--accent); text-decoration: none; }
+        .contact-note a:hover { text-decoration: underline; }
+
+        /* CTA */
+        .cta { text-align: center; padding: 2rem 2rem 5rem; }
+        .btn { display: inline-block; padding: 14px 32px; border-radius: 10px; text-decoration: none; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(232,121,168,0.15); }
+        .btn-ghost { border: 1px solid var(--border); color: var(--text); margin-left: 0.6rem; }
+        .btn-ghost:hover { border-color: rgba(232,121,168,0.3); color: var(--accent); }
+
+        /* Footer */
+        footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); }
+        footer p { font-size: 0.65rem; color: #c4b8c4; letter-spacing: 2px; text-transform: uppercase; font-weight: 500; }
+        footer span { color: var(--accent); }
+
+        @media (max-width: 640px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .avatar { width: 100px; height: 100px; }
+            .avatar-inner { font-size: 2.5rem; }
+            nav { gap: 0; }
+            nav a { padding: 8px 12px; font-size: 0.62rem; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="active">Home</a>
+        <a href="bjj.html">BJJ Journey</a>
+        <a href="about.html">About Me</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-inner">
+            <div class="avatar"><div class="avatar-inner">🥋</div></div>
+            <h1>Hey, I'm <span class="gradient">Sofia</span></h1>
+            <p>Athlete, student, and Brazilian Jiu-Jitsu competitor with 5 years of dedication on the mats.</p>
+            <div class="tags">
+                <span class="tag">Jiu-Jitsu</span>
+                <span class="tag">Grey & Black Belt</span>
+                <span class="tag">Competitor</span>
+                <span class="tag">5 Years Training</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="section">
+        <div class="section-line"></div>
+        <div class="section-label">Explore</div>
+        <h2 class="section-title">What I'm Into</h2>
+        <div class="grid">
+            <a href="bjj.html" class="card">
+                <div class="card-icon">🥋</div>
+                <div class="card-title">Brazilian Jiu-Jitsu</div>
+                <div class="card-desc">5 years of training, 15+ competitions, and counting. BJJ taught me discipline, patience, and resilience.</div>
+                <span class="card-link">View my journey →</span>
+            </a>
+            <div class="card">
+                <div class="card-icon">📚</div>
+                <div class="card-title">School & Learning</div>
+                <div class="card-desc">Always growing and learning new things. Education matters to me, both on and off the mats.</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">💻</div>
+                <div class="card-title">Building Things</div>
+                <div class="card-desc">Like this website! I enjoy creating things and bringing ideas to life through design and code.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-line"></div>
+        <div class="section-label">At a Glance</div>
+        <h2 class="section-title">Highlights</h2>
+        <div class="stats-grid">
+            <div class="stat"><div class="stat-num">5</div><div class="stat-label">Years</div></div>
+            <div class="stat"><div class="stat-num">800+</div><div class="stat-label">Classes</div></div>
+            <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Tournaments</div></div>
+            <div class="stat"><div class="stat-num">4</div><div class="stat-label">Belts</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-line"></div>
+        <div class="section-label">Connect</div>
+        <h2 class="section-title">Get in Touch</h2>
+        <div class="social-grid">
+            <a href="https://instagram.com/thesofialujan" target="_blank" class="social-btn"><span class="icon">📸</span> Instagram</a>
+            <a href="https://tiktok.com/@thesofialujan" target="_blank" class="social-btn"><span class="icon">🎵</span> TikTok</a>
+            <a href="mailto:sofialujantx@gmail.com" class="social-btn"><span class="icon">✉️</span> Email Me</a>
+        </div>
+        <p class="contact-note">DM me on <a href="https://instagram.com/thesofialujan" target="_blank">Instagram</a> or send me an <a href="mailto:sofialujantx@gmail.com">email</a></p>
+    </div>
+
+    <section class="cta">
+        <a href="bjj.html" class="btn btn-primary">My BJJ Journey</a>
+        <a href="about.html" class="btn btn-ghost">About Me</a>
+    </section>
+
+    <footer><p>Made with <span>♥</span> by Sofia</p></footer>
+
+</body>
+</html>

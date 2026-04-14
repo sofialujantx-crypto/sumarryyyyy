@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olivia's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f5ede3;
+      min-height: 100vh;
+      padding: 24px 16px 40px;
+    }
+
+    /* LOGIN */
+    .login {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .login-card {
+      background: #fffaf6;
+      border-radius: 20px;
+      box-shadow: 0 4px 32px rgba(120, 70, 20, 0.10);
+      padding: 44px 40px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+    }
+    .login-card .dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #b5845a;
+      border-radius: 50%;
+      margin-bottom: 16px;
+    }
+    .login-card h1 {
+      font-family: 'Playfair Display', serif;
+      color: #3b2010;
+      font-size: 1.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .login-card p { color: #a07850; font-size: 0.88rem; font-weight: 500; margin-bottom: 24px; }
+    .login-card input {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #e0cdb8;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+      margin-bottom: 12px;
+      letter-spacing: 0.25em;
+      background: white;
+      color: #3b2010;
+    }
+    .login-card input:focus { border-color: #b5845a; }
+    .login-card button {
+      width: 100%;
+      padding: 14px;
+      background: #b5845a;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: all 0.18s;
+    }
+    .login-card button:hover { background: #9a6c44; }
+    .login-error {
+      color: #c0614a;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* DASHBOARD */
+    .dashboard { display: none; max-width: 480px; margin: 0 auto; }
+
+    .dash-header {
+      padding: 20px 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-header h1 {
+      font-family: 'Playfair Display', serif;
+      color: #3b2010;
+      font-size: 1.7rem;
+      font-weight: 600;
+    }
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #7dab7a;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .live-dot {
+      width: 7px; height: 7px;
+      background: #7dab7a;
+      border-radius: 50%;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat-box {
+      border-radius: 16px;
+      padding: 20px 18px;
+    }
+    .stat-box.money {
+      background: #b5845a;
+      box-shadow: 0 4px 20px rgba(155, 100, 60, 0.2);
+    }
+    .stat-box.orders {
+      background: #fffaf6;
+      box-shadow: 0 2px 12px rgba(120, 70, 20, 0.08);
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+    .stat-box.money .stat-label { color: rgba(255,255,255,0.75); }
+    .stat-box.orders .stat-label { color: #a07850; }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    .stat-box.money .stat-value { color: white; }
+    .stat-box.orders .stat-value { color: #3b2010; }
+
+    /* SECTION TITLE */
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #a07850;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    /* ORDER CARDS */
+    .order-card {
+      background: #fffaf6;
+      border-radius: 16px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 12px rgba(120, 70, 20, 0.07);
+      border: 1.5px solid transparent;
+      transition: all 0.2s;
+    }
+    .order-card.done-card {
+      border-color: #c8ddc7;
+      opacity: 0.6;
+    }
+    .order-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .order-info { flex: 1; }
+    .order-name {
+      font-weight: 700;
+      color: #3b2010;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .order-notes {
+      color: #a07850;
+      font-size: 0.80rem;
+      margin-bottom: 3px;
+    }
+    .order-time {
+      color: #c8aa8e;
+      font-size: 0.75rem;
+    }
+    .order-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+    .price-badge {
+      background: #fdf0e3;
+      color: #b5845a;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.02em;
+    }
+    .status-badge {
+      font-weight: 700;
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-badge.pending { background: #fdf3df; color: #c8963a; }
+    .status-badge.done { background: #eaf4ea; color: #5fa05c; }
+
+    .new-badge {
+      background: #c0614a;
+      color: white;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-left: 6px;
+      animation: blink 1.2s infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .done-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      margin-top: 14px;
+      letter-spacing: 0.03em;
+      transition: all 0.18s;
+    }
+    .done-btn.mark { background: #b5845a; color: white; }
+    .done-btn.mark:hover { background: #9a6c44; }
+    .done-btn.undo { background: #f0e6da; color: #7b5030; }
+    .done-btn.undo:hover { background: #e8d8c8; }
+
+    .no-orders {
+      text-align: center;
+      color: #c8aa8e;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      background: #fffaf6;
+      border-radius: 16px;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .clear-btn {
+      width: 100%;
+      padding: 12px;
+      background: none;
+      border: 1.5px solid #e0cdb8;
+      border-radius: 12px;
+      color: #c8aa8e;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      margin-bottom: 24px;
+      letter-spacing: 0.04em;
+      transition: all 0.18s;
+    }
+    .clear-btn:hover { border-color: #c0614a; color: #c0614a; }
+
+    .back-link {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .back-link a {
+      color: #c8aa8e;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.15s;
+    }
+    .back-link a:hover { color: #a07850; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div class="login" id="loginScreen">
+    <div class="login-card">
+      <div class="dot"></div>
+      <h1>Kitchen View</h1>
+      <p>Enter your password to continue</p>
+      <input type="password" id="pwInput" placeholder="&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key==='Enter')tryLogin()" />
+      <button onclick="tryLogin()">Enter &rarr;</button>
+      <p class="login-error" id="loginErr">Incorrect password. Try again.</p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="dashboard" id="dashboard">
+    <div class="dash-header">
+      <h1>Olivia's Kitchen</h1>
+      <div class="live-indicator">
+        <span class="live-dot"></span> Live
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-box money">
+        <div class="stat-label">Total Earned</div>
+        <div class="stat-value" id="totalEarned">$0</div>
+      </div>
+      <div class="stat-box orders">
+        <div class="stat-label">Orders</div>
+        <div class="stat-value" id="totalOrders">0</div>
+      </div>
+    </div>
+
+    <div class="section-title">All Orders</div>
+    <div id="ordersList">
+      <div class="no-orders">No orders yet — waiting for Dad.</div>
+    </div>
+    <button class="clear-btn" onclick="clearAll()">Clear all orders</button>
+
+    <div class="back-link">
+      <a href="/">&larr; Back to Coffee Shop</a>
+    </div>
+  </div>
+
+  <script>
+    const firebaseConfig = { databaseURL: "https://olivia-coffee-default-rtdb.firebaseio.com" };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const ordersRef = db.ref('orders');
+    const SECRET = 'olivia';
+
+    function tryLogin() {
+      const val = document.getElementById('pwInput').value.toLowerCase().trim();
+      if (val === SECRET) {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        startListening();
+      } else {
+        document.getElementById('loginErr').style.display = 'block';
+        document.getElementById('pwInput').value = '';
+        document.getElementById('pwInput').focus();
+      }
+    }
+
+    let prevCount = 0;
+
+    function startListening() {
+      ordersRef.on('value', snapshot => {
+        const data = snapshot.val();
+        const list = document.getElementById('ordersList');
+
+        if (!data) {
+          list.innerHTML = '<div class="no-orders">No orders yet — waiting for Dad.</div>';
+          document.getElementById('totalEarned').textContent = '$0';
+          document.getElementById('totalOrders').textContent = '0';
+          prevCount = 0;
+          return;
+        }
+
+        const entries = Object.entries(data).reverse();
+        const total = entries.reduce((sum, [, o]) => sum + (o.price || 3), 0);
+        const newCount = entries.length;
+
+        document.getElementById('totalEarned').textContent = '$' + total;
+        document.getElementById('totalOrders').textContent = newCount;
+
+        if (newCount > prevCount && prevCount > 0) {
+          document.title = 'New Order! — Olivia\'s Kitchen';
+          setTimeout(() => document.title = 'Olivia\'s Kitchen', 3000);
+        }
+        prevCount = newCount;
+
+        list.innerHTML = entries.map(([key, o], i) => `
+          <div class="order-card ${o.done ? 'done-card' : ''}">
+            <div class="order-card-top">
+              <div class="order-info">
+                <div class="order-name">
+                  ${o.temp} ${o.size} ${o.drink}
+                  ${i === 0 && !o.done ? '<span class="new-badge">New</span>' : ''}
+                </div>
+                ${o.notes ? `<div class="order-notes">${o.notes}</div>` : ''}
+                <div class="order-time">${o.time}</div>
+              </div>
+              <div class="order-right">
+                <span class="price-badge">$${o.price || 3}</span>
+                <span class="status-badge ${o.done ? 'done' : 'pending'}">
+                  ${o.done ? 'Done' : 'Pending'}
+                </span>
+              </div>
+            </div>
+            <button class="done-btn ${o.done ? 'undo' : 'mark'}" onclick="toggleDone('${key}', ${!!o.done})">
+              ${o.done ? 'Mark as Pending' : 'Mark as Done'}
+            </button>
+          </div>
+        `).join('');
+      });
+    }
+
+    function toggleDone(key, isDone) {
+      ordersRef.child(key).update({ done: !isDone });
+    }
+
+    function clearAll() {
+      if (confirm('Clear all orders? This cannot be undone.')) {
+        ordersRef.remove();
+      }
+    }
+  </script>
+</body>
+</html>

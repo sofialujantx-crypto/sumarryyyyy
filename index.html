@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Sofia's Summary for Today">
+  <meta property="og:description" content="Here's what I've been working on!">
+  <title>Sofia's Summary for Today</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fdf6ee;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: #fffdf9;
+      border-radius: 4px;
+      padding: 2.5rem 2.2rem;
+      border: 1px solid rgba(176,122,122,0.15);
+    }
+
+    .header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(176,122,122,0.12);
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #3d2c2c;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .header .date {
+      font-size: 0.78rem;
+      color: #9e7e7e;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .section {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-title {
+      font-size: 0.65rem;
+      color: #b07a7a;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Summary list */
+    .summary-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+    }
+
+    .check {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      background: #b07a7a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .check svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .summary-text {
+      font-size: 0.88rem;
+      color: #5a4444;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .summary-text strong {
+      color: #3d2c2c;
+      font-weight: 600;
+    }
+
+    /* Projects */
+    .project-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.85rem;
+      background: #fdf6ee;
+      border: 1px solid rgba(176,122,122,0.1);
+      border-radius: 3px;
+      margin-bottom: 0.45rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+
+    .project-row:hover {
+      background: #f5ede0;
+    }
+
+    .project-arrow {
+      color: #b07a7a;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .project-row:hover .project-arrow {
+      opacity: 1;
+    }
+
+    .project-name {
+      flex: 1;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #3d2c2c;
+    }
+
+    .project-right {
+      text-align: right;
+    }
+
+    .project-pct {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #3d2c2c;
+    }
+
+    .project-bar {
+      width: 60px;
+      height: 3px;
+      background: rgba(176,122,122,0.15);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .project-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: #b07a7a;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .skill {
+      font-size: 0.68rem;
+      padding: 0.28rem 0.7rem;
+      border-radius: 2px;
+      background: #fdf6ee;
+      color: #9e7e7e;
+      font-weight: 500;
+      border: 1px solid rgba(176,122,122,0.15);
+      letter-spacing: 0.02em;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(176,122,122,0.12);
+      margin-top: 0.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      color: #b07a7a;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 400px) {
+      body { padding: 1rem; }
+      .card { padding: 2rem 1.5rem; }
+      .header h1 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="header">
+      <h1>Sofia's Summary for Today</h1>
+      <div class="date">April 13, 2026</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">What I accomplished</div>
+      <div class="summary-item">
+        <div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="summary-text">Built a <strong>project dashboard</strong> to track all my projects and tasks</div>
+      </div>
+      <div class="summary-item">
+        <div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="summary-text">Made it a <strong>desktop app</strong> I can launch from my Dock</div>
+      </div>
+      <div class="summary-item">
+        <div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="summary-text">Set up <strong>4 projects</strong> with task tracking and progress bars</div>
+      </div>
+      <div class="summary-item">
+        <div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="summary-text">Created this <strong>visual summary</strong> and deployed it online</div>
+      </div>
+      <div class="summary-item">
+        <div class="check"><svg fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></div>
+        <div class="summary-text">Did some of the <strong>typing myself</strong>!</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">My Projects</div>
+      <a class="project-row" href="bjj-journey/index.html">
+        <div class="project-name">BJJ Journey</div>
+        <div class="project-right">
+          <div class="project-pct">95%</div>
+          <div class="project-bar"><div class="project-fill" style="width:95%"></div></div>
+        </div>
+        <div class="project-arrow">&#8594;</div>
+      </a>
+      <a class="project-row" href="coffee-shop/index.html">
+        <div class="project-name">Olivia's Coffee Shop</div>
+        <div class="project-right">
+          <div class="project-pct">90%</div>
+          <div class="project-bar"><div class="project-fill" style="width:90%"></div></div>
+        </div>
+        <div class="project-arrow">&#8594;</div>
+      </a>
+      <a class="project-row" href="sofia-website/index.html">
+        <div class="project-name">Sofia Website</div>
+        <div class="project-right">
+          <div class="project-pct">80%</div>
+          <div class="project-bar"><div class="project-fill" style="width:80%"></div></div>
+        </div>
+        <div class="project-arrow">&#8594;</div>
+      </a>
+      <a class="project-row" href="sumo-karaoke/index.html">
+        <div class="project-name">Sumo Karaoke</div>
+        <div class="project-right">
+          <div class="project-pct">75%</div>
+          <div class="project-bar"><div class="project-fill" style="width:75%"></div></div>
+        </div>
+        <div class="project-arrow">&#8594;</div>
+      </a>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Skills I'm learning</div>
+      <div class="skills-grid">
+        <span class="skill">HTML</span>
+        <span class="skill">CSS</span>
+        <span class="skill">JavaScript</span>
+        <span class="skill">PWA</span>
+        <span class="skill">Responsive Design</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      Sofia Lujan
+    </div>
+  </div>
+
+</body>
+</html>

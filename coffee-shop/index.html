@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Olivia's Coffee Shop ☕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #fdf6ec 0%, #fce4c8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 8px 40px rgba(180, 100, 40, 0.15);
+      padding: 40px 36px;
+      max-width: 420px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: #7b3f00;
+      line-height: 1.2;
+    }
+
+    .header p {
+      color: #a0714f;
+      font-size: 1rem;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    .section-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #7b3f00;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .section {
+      margin-bottom: 24px;
+    }
+
+    .options {
+      display: flex;
+      gap: 12px;
+    }
+
+    .option-btn {
+      flex: 1;
+      padding: 16px 10px;
+      border: 2.5px solid #e8d5c0;
+      border-radius: 16px;
+      background: white;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #7b3f00;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .option-btn .emoji {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .option-btn:hover {
+      border-color: #c8783a;
+      background: #fff8f2;
+    }
+
+    .option-btn.selected {
+      border-color: #c8783a;
+      background: #fff3e8;
+      box-shadow: 0 0 0 3px rgba(200, 120, 58, 0.15);
+    }
+
+    .drinks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .drink-btn {
+      padding: 14px 10px;
+      border: 2.5px solid #e8d5c0;
+      border-radius: 14px;
+      background: white;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #7b3f00;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .drink-btn .emoji {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+
+    .drink-btn:hover {
+      border-color: #c8783a;
+      background: #fff8f2;
+    }
+
+    .drink-btn.selected {
+      border-color: #c8783a;
+      background: #fff3e8;
+      box-shadow: 0 0 0 3px rgba(200, 120, 58, 0.15);
+    }
+
+    .size-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .size-btn {
+      flex: 1;
+      padding: 12px 8px;
+      border: 2.5px solid #e8d5c0;
+      border-radius: 12px;
+      background: white;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #7b3f00;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .size-btn:hover {
+      border-color: #c8783a;
+      background: #fff8f2;
+    }
+
+    .size-btn.selected {
+      border-color: #c8783a;
+      background: #fff3e8;
+      box-shadow: 0 0 0 3px rgba(200, 120, 58, 0.15);
+    }
+
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border: 2.5px solid #e8d5c0;
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: #5c3d1e;
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      background: white;
+    }
+
+    textarea:focus {
+      border-color: #c8783a;
+    }
+
+    textarea::placeholder {
+      color: #c4a882;
+    }
+
+    .order-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #c8783a, #9b4f1e);
+      color: white;
+      border: none;
+      border-radius: 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .order-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(155, 79, 30, 0.4);
+    }
+
+    .order-btn:active {
+      transform: translateY(0);
+    }
+
+    .order-btn:disabled {
+      background: #d4b896;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Confirmation screen */
+    .confirm-screen {
+      display: none;
+      text-align: center;
+    }
+
+    .confirm-screen .big-emoji {
+      font-size: 5rem;
+      margin-bottom: 16px;
+      animation: bounce 0.6s ease;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .confirm-screen h2 {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.9rem;
+      color: #7b3f00;
+      margin-bottom: 10px;
+    }
+
+    .confirm-screen .order-summary {
+      background: #fff3e8;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .confirm-screen .order-summary p {
+      color: #7b3f00;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .confirm-screen .order-summary p span {
+      font-weight: 400;
+      color: #a0714f;
+    }
+
+    .confirm-screen .sub {
+      color: #a0714f;
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .new-order-btn {
+      background: none;
+      border: 2.5px solid #c8783a;
+      color: #c8783a;
+      padding: 14px 32px;
+      border-radius: 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .new-order-btn:hover {
+      background: #fff3e8;
+    }
+
+    /* Olivia's view link */
+    .view-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .view-link button {
+      background: none;
+      border: none;
+      color: #c4a882;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      text-decoration: underline;
+    }
+
+    /* Olivia orders panel */
+    .orders-panel {
+      display: none;
+      margin-top: 24px;
+      border-top: 2px solid #f0e0ce;
+      padding-top: 20px;
+    }
+
+    .orders-panel h3 {
+      font-family: 'Pacifico', cursive;
+      color: #7b3f00;
+      font-size: 1.2rem;
+      margin-bottom: 14px;
+    }
+
+    .order-item {
+      background: #fff8f2;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      border: 1.5px solid #e8d5c0;
+    }
+
+    .order-item .order-title {
+      font-weight: 800;
+      color: #7b3f00;
+      font-size: 0.95rem;
+    }
+
+    .order-item .order-meta {
+      color: #a0714f;
+      font-size: 0.82rem;
+      margin-top: 3px;
+    }
+
+    .no-orders {
+      color: #c4a882;
+      font-size: 0.9rem;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .clear-btn {
+      background: none;
+      border: 1.5px solid #e8d5c0;
+      color: #c4a882;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      cursor: pointer;
+      margin-top: 8px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+
+    <!-- ORDER FORM -->
+    <div id="orderForm">
+      <div class="header">
+        <h1>☕ Olivia's<br>Coffee Shop</h1>
+        <p>What can I make you, Dad?</p>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Hot or Iced?</div>
+        <div class="options">
+          <button class="option-btn" onclick="selectTemp(this, 'Hot')" id="tempHot">
+            <span class="emoji">🔥</span> Hot
+          </button>
+          <button class="option-btn" onclick="selectTemp(this, 'Iced')" id="tempIced">
+            <span class="emoji">🧊</span> Iced
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">What drink?</div>
+        <div class="drinks-grid">
+          <button class="drink-btn" onclick="selectDrink(this, 'Coffee')">
+            <span class="emoji">☕</span> Coffee
+          </button>
+          <button class="drink-btn" onclick="selectDrink(this, 'Latte')">
+            <span class="emoji">🥛</span> Latte
+          </button>
+          <button class="drink-btn" onclick="selectDrink(this, 'Cappuccino')">
+            <span class="emoji">💨</span> Cappuccino
+          </button>
+          <button class="drink-btn" onclick="selectDrink(this, 'Espresso')">
+            <span class="emoji">⚡</span> Espresso
+          </button>
+          <button class="drink-btn" onclick="selectDrink(this, 'Mocha')">
+            <span class="emoji">🍫</span> Mocha
+          </button>
+          <button class="drink-btn" onclick="selectDrink(this, 'Tea')">
+            <span class="emoji">🍵</span> Tea
+          </button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Size</div>
+        <div class="size-options">
+          <button class="size-btn" onclick="selectSize(this, 'Small')">Small</button>
+          <button class="size-btn" onclick="selectSize(this, 'Medium')">Medium</button>
+          <button class="size-btn" onclick="selectSize(this, 'Large')">Large</button>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-label">Any notes? (optional)</div>
+        <textarea id="notes" rows="2" placeholder="e.g. extra sugar, oat milk..."></textarea>
+      </div>
+
+      <button class="order-btn" id="orderBtn" onclick="placeOrder()" disabled>
+        Place My Order ☕
+      </button>
+    </div>
+
+    <!-- CONFIRMATION SCREEN -->
+    <div id="confirmScreen" class="confirm-screen">
+      <div class="big-emoji">🎉</div>
+      <h2>Order Placed!</h2>
+      <div class="order-summary" id="orderSummary"></div>
+      <p class="sub">Olivia will get it ready for you!</p>
+      <button class="new-order-btn" onclick="resetOrder()">Order Another</button>
+    </div>
+
+    <!-- Olivia's secret view -->
+    <div class="view-link">
+      <button onclick="toggleOrders()">Olivia — see orders</button>
+    </div>
+    <div class="orders-panel" id="ordersPanel">
+      <h3>📋 Orders</h3>
+      <div id="ordersList"></div>
+      <button class="clear-btn" onclick="clearOrders()">Clear all orders</button>
+    </div>
+
+  </div>
+
+  <script>
+    let selectedTemp = '';
+    let selectedDrink = '';
+    let selectedSize = '';
+
+    function selectTemp(btn, value) {
+      document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedTemp = value;
+      checkReady();
+    }
+
+    function selectDrink(btn, value) {
+      document.querySelectorAll('.drink-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedDrink = value;
+      checkReady();
+    }
+
+    function selectSize(btn, value) {
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedSize = value;
+      checkReady();
+    }
+
+    function checkReady() {
+      const btn = document.getElementById('orderBtn');
+      btn.disabled = !(selectedTemp && selectedDrink && selectedSize);
+    }
+
+    function placeOrder() {
+      const notes = document.getElementById('notes').value.trim();
+      const order = {
+        temp: selectedTemp,
+        drink: selectedDrink,
+        size: selectedSize,
+        notes: notes,
+        time: new Date().toLocaleString()
+      };
+
+      // Save to localStorage
+      const orders = JSON.parse(localStorage.getItem('coffeeOrders') || '[]');
+      orders.unshift(order);
+      localStorage.setItem('coffeeOrders', JSON.stringify(orders));
+
+      // Show confirmation
+      const summary = document.getElementById('orderSummary');
+      summary.innerHTML = `
+        <p>Drink: <span>${order.temp} ${order.size} ${order.drink}</span></p>
+        ${order.notes ? `<p>Notes: <span>${order.notes}</span></p>` : ''}
+        <p>Time: <span>${order.time}</span></p>
+      `;
+
+      document.getElementById('orderForm').style.display = 'none';
+      document.getElementById('confirmScreen').style.display = 'block';
+    }
+
+    function resetOrder() {
+      selectedTemp = '';
+      selectedDrink = '';
+      selectedSize = '';
+      document.querySelectorAll('.option-btn, .drink-btn, .size-btn').forEach(b => b.classList.remove('selected'));
+      document.getElementById('notes').value = '';
+      document.getElementById('orderBtn').disabled = true;
+      document.getElementById('orderForm').style.display = 'block';
+      document.getElementById('confirmScreen').style.display = 'none';
+    }
+
+    function toggleOrders() {
+      const panel = document.getElementById('ordersPanel');
+      if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+      } else {
+        loadOrders();
+        panel.style.display = 'block';
+      }
+    }
+
+    function loadOrders() {
+      const orders = JSON.parse(localStorage.getItem('coffeeOrders') || '[]');
+      const list = document.getElementById('ordersList');
+      if (orders.length === 0) {
+        list.innerHTML = '<p class="no-orders">No orders yet!</p>';
+        return;
+      }
+      list.innerHTML = orders.map(o => `
+        <div class="order-item">
+          <div class="order-title">${o.temp} ${o.size} ${o.drink}</div>
+          <div class="order-meta">${o.notes ? '📝 ' + o.notes + ' · ' : ''}🕐 ${o.time}</div>
+        </div>
+      `).join('');
+    }
+
+    function clearOrders() {
+      localStorage.removeItem('coffeeOrders');
+      loadOrders();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sofia Lujan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #fdf6ee; --surface: #f5ede0; --card: #fffdf9; --cream: #3d2c2c; --muted: #9e7e7e; --accent: #b07a7a; --border: rgba(176,122,122,0.15); }
+          html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--cream); overflow-x: hidden; }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 22px 60px; display: flex; justify-content: space-between; align-items: center; background: rgba(253,246,238,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--cream); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 36px; }
+    .nav-links { list-style: none; display: flex; gap: 32px; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-cta { background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 10px 24px; border-radius: 2px; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px 80px; }
+    .hero-tag { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(5rem, 16vw, 14rem); font-weight: 600; line-height: 0.85; color: var(--cream); }
+    .hero h1 .italic { font-style: italic; color: var(--accent); }
+          .hero-sub { margin-top: 36px; font-size: 1rem; color: var(--muted); font-weight: 300; max-width: 620px; line-height: 1.7; }
+    .hero-btns { margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary { background: var(--accent); color: var(--bg); padding: 16px 36px; text-decoration: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; }
+    .btn-secondary { border: 1px solid var(--muted); color: var(--cream); padding: 16px 36px; text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; }
+    .section-label { font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .story { padding: 120px 60px; background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .story-inner { max-width: 700px; margin: 0 auto; }
+    .story h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 600; line-height: 1.2; margin-bottom: 28px; }
+    .story p { color: var(--muted); line-height: 1.9; font-weight: 300; font-size: 0.95rem; margin-bottom: 16px; }
+    .media { padding: 120px 60px; }
+    .media-header { text-align: center; margin-bottom: 60px; }
+          .media-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 600; }
+    .media-intro { max-width: 600px; margin: 0 auto 60px; text-align: center; color: var(--muted); font-weight: 300; line-height: 1.8; font-size: 0.95rem; }
+          .media-list { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 2px; }
+    .media-card { background: var(--card); border: 1px solid var(--border); padding: 36px 48px; text-decoration: none; color: var(--cream); display: flex; align-items: center; gap: 32px; transition: background 0.3s; }
+    .media-card:hover { background: #f2e4d8; }
+        .media-icon { font-size: 1.8rem; min-width: 40px; }
+    .media-card-info { flex: 1; }
+    .media-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; margin-bottom: 4px; }
+    .media-card p { color: var(--muted); font-size: 0.85rem; line-height: 1.6; font-weight: 300; }
+    .media-handle { display: inline-block; margin-top: 6px; font-size: 0.8rem; color: var(--accent); }
+    .media-arrow { color: var(--accent); font-size: 1.2rem; opacity: 0; transition: opacity 0.2s, transform 0.2s; }
+    .media-card:hover .media-arrow { opacity: 1; transform: translate(4px, -4px); }
+    .contact { padding: 120px 60px; text-align: center; background: var(--surface); border-top: 1px solid var(--border); }
+    .contact h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 6vw, 5rem); font-style: italic; margin-bottom: 20px; }
+    .contact p { color: var(--muted); font-weight: 300; max-width: 480px; margin: 0 auto 40px; line-height: 1.8; }
+    .contact-email { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--bg); background: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 60px; padding: 16px 36px; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; transition: background 0.2s; }
+    .contact-email:hover { background: #9a6868; }
+    .lead-form { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+    .lead-form input, .lead-form textarea { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; padding: 16px 20px; border: 1px solid var(--border); background: var(--card); color: var(--cream); border-radius: 2px; outline: none; transition: border-color 0.2s; }
+    .lead-form input:focus, .lead-form textarea:focus { border-color: var(--accent); }
+    .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--muted); font-weight: 300; }
+    .lead-form textarea { resize: vertical; min-height: 120px; }
+    .lead-form button { font-family: 'DM Sans', sans-serif; background: var(--accent); color: var(--bg); padding: 16px 36px; border: none; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; transition: background 0.2s; }
+    .lead-form button:hover { background: #9a6868; }
+    .lead-divider { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin: 20px 0; }
+    footer { padding: 40px 60px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 0.8rem; }
+    footer a { color: var(--accent); text-decoration: none; }
+    @media (max-width: 768px) { nav { padding: 16px 24px; } .nav-links { display: none; } .story, .media, .contact { padding: 80px 24px; } footer { flex-direction: column; gap: 12px; text-align: center; } }
+  </style>
+    </head>
+    <body>
+      <nav>
+        <div style="display:flex;align-items:center;gap:20px;">
+          <a href="#" class="nav-logo">Sofia Lujan</a>
+          <a href="summary.html" style="background:none;border:1px solid var(--accent);color:var(--accent);padding:7px 16px;border-radius:2px;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-family:'DM Sans',sans-serif;text-decoration:none;">My Summary</a>
+        </div>
+        <div class="nav-right">
+          <ul class="nav-links">
+            <li><a href="#world">About</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <a href="#contact" class="nav-cta">Let's Connect</a>
+        </div>
+      </nav>
+      <section class="hero">
+        <p class="hero-tag">Content Creator</p>
+        <h1><span style="display:block;">SOFIA</span><span style="display:block;" class="italic">Lujan</span></h1>
+        <p class="hero-sub">Creating content that connects, inspires, and tells stories worth sharing.</p>
+        <div class="hero-btns">
+          <a href="#world" class="btn-primary">Explore My World</a>
+          <a href="#contact" class="btn-secondary">Work With Me</a>
+        </div>
+      </section>
+      <section class="story" id="world">
+        <div class="story-inner">
+          <p class="section-label">My Story</p>
+          <h2>About Me</h2>
+          <p>I'm Sofia Lujan, a 15-year-old content creator from Houston, Texas. I'm homeschooled, which gives me the freedom to pour my energy into what I love most: making content every single day.</p>
+          <p>I grew up watching my dad build his family-owned construction company from the ground up, and that work ethic rubbed off on me. I train Jiu-Jitsu, and that same discipline I bring to the mat is what drives everything I create.</p>
+      <p>Content isn't just something I do. It's how I express myself and connect with the world.</p>
+        </div>
+      </section>
+      <section class="media" id="media">
+        <div class="media-header">
+          <p class="section-label">Stay Connected</p>
+          <h2>Follow the Journey</h2>
+    </div>
+    <p class="media-intro">From everyday moments to behind-the-scenes content, follow along and be part of the story.</p>
+        <div class="media-list">
+          <a href="https://instagram.com/thesofialujan" target="_blank" class="media-card">
+            <div class="media-icon">📸</div>
+            <div class="media-card-info"><h3>Instagram</h3><p>Photos, reels, and everyday moments curated just for you.</p><span class="media-handle">@thesofialujan</span></div>
+            <span class="media-arrow">&#8599;</span>
+          </a>
+          <a href="https://www.tiktok.com/@thesofialujan" target="_blank" class="media-card">
+            <div class="media-icon">🎵</div>
+            <div class="media-card-info"><h3>TikTok</h3><p>Short-form videos, trends, and behind-the-scenes content.</p><span class="media-handle">@thesofialujan</span></div>
+            <span class="media-arrow">&#8599;</span>
+          </a>
+        </div>
+      </section>
+      <section class="contact" id="contact">
+        <p class="section-label">Get In Touch</p>
+    <h2>Let's work together.</h2>
+        <p>Open to brand collaborations, partnerships, and creative projects. Reach out and let's make something great.</p>
+        <a href="mailto:sofialujantx@gmail.com" class="btn-primary">sofialujantx@gmail.com</a>
+      </section>
+      <footer>
+        <span>2026 Sofia Lujan</span>
+        <a href="https://instagram.com/thesofialujan" target="_blank">@thesofialujan</a>
+      </footer>
+    </body>
+    </html>

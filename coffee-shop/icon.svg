@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#c8783a" rx="100"/>
+
+  <!-- Cup body -->
+  <rect x="116" y="220" width="230" height="180" rx="30" fill="white"/>
+
+  <!-- Cup handle -->
+  <path d="M346 260 Q410 260 410 310 Q410 360 346 380" fill="none" stroke="white" stroke-width="32" stroke-linecap="round"/>
+
+  <!-- Saucer -->
+  <ellipse cx="231" cy="408" rx="148" ry="20" fill="white" opacity="0.9"/>
+
+  <!-- Heart steam (left) -->
+  <path d="M170 190 Q160 165 170 145 Q180 125 170 105" fill="none" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- Heart steam (middle) -->
+  <path d="M231 185 Q220 158 231 135 Q242 112 231 90" fill="none" stroke="white" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- Heart shape on cup -->
+  <path d="M231 340 C231 340 185 308 185 280 C185 263 198 252 215 258 C222 261 231 270 231 270 C231 270 240 261 247 258 C264 252 277 263 277 280 C277 308 231 340 231 340 Z" fill="#c8783a"/>
+
+  <!-- Stars -->
+  <text x="108" y="195" font-size="28" fill="white" opacity="0.9">✦</text>
+  <text x="310" y="175" font-size="22" fill="white" opacity="0.8">✦</text>
+  <text x="340" y="215" font-size="16" fill="white" opacity="0.7">✦</text>
+</svg>

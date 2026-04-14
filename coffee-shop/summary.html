@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofia's Summary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fdf6ee;
+      color: #3d2c2c;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .graphic {
+      width: 800px;
+      background: #fffdf9;
+      border: 1px solid rgba(176,122,122,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #d4a5a5, #b07a7a);
+      padding: 48px;
+      text-align: center;
+      color: white;
+    }
+
+    .header p {
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 12px;
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .header h1 em {
+      font-style: italic;
+      opacity: 0.85;
+    }
+
+    .header .date {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      opacity: 0.7;
+      letter-spacing: 0.1em;
+    }
+
+    .body {
+      padding: 48px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .intro p {
+      font-size: 1rem;
+      color: #9e7e7e;
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .item {
+      background: #fdf6ee;
+      border: 1px solid rgba(176,122,122,0.15);
+      border-radius: 4px;
+      padding: 28px;
+    }
+
+    .item-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: #b07a7a;
+      margin-bottom: 10px;
+      letter-spacing: 0.1em;
+    }
+
+    .item h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .item p {
+      font-size: 0.82rem;
+      color: #9e7e7e;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, #f2d9d0, #fdf6ee);
+      border: 1px solid rgba(176,122,122,0.2);
+      border-radius: 4px;
+      padding: 32px 40px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .highlight h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-style: italic;
+      color: #b07a7a;
+      margin-bottom: 8px;
+    }
+
+    .highlight p {
+      font-size: 0.85rem;
+      color: #9e7e7e;
+      font-weight: 300;
+    }
+
+    .highlight a {
+      color: #b07a7a;
+      font-weight: 500;
+    }
+
+    .footer {
+      border-top: 1px solid rgba(176,122,122,0.15);
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #b07a7a;
+    }
+
+    .footer p {
+      font-size: 0.75rem;
+      color: #9e7e7e;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="graphic">
+
+    <div class="header">
+      <p>Session Summary</p>
+      <h1>Sofia <em>Lujan</em></h1>
+      <p class="date">March 31, 2026</p>
+    </div>
+
+    <div class="body">
+
+      <div class="intro">
+        <p>Today Sofia continued building her personal brand website and created a brand new coffee tracking website for her sister Olivia.</p>
+      </div>
+
+      <div class="grid">
+        <div class="item">
+          <p class="item-num">01</p>
+          <h3>About Me Section</h3>
+          <p>Updated her website with a personal story — 15 years old, Houston TX, homeschooled, Jiu-Jitsu, and daily content creation.</p>
+        </div>
+        <div class="item">
+          <p class="item-num">02</p>
+          <h3>Media Section</h3>
+          <p>Redesigned the media section to look like franklujan.com with clean vertical cards linking to Instagram and TikTok.</p>
+        </div>
+        <div class="item">
+          <p class="item-num">03</p>
+          <h3>Password Button</h3>
+          <p>Added a secret "My Summary" button with a password so Dad can check in on what Sofia did each day.</p>
+        </div>
+        <div class="item">
+          <p class="item-num">04</p>
+          <h3>Olivia's Coffee Site</h3>
+          <p>Built a brand new coffee tracking website for Olivia — logs hot & iced coffees at $2 each with photo proof and timestamps.</p>
+        </div>
+        <div class="item">
+          <p class="item-num">05</p>
+          <h3>Font & Colors</h3>
+          <p>Refined the website design with Comfortaa font and a soft milky white and cream color palette throughout.</p>
+        </div>
+        <div class="item">
+          <p class="item-num">06</p>
+          <h3>Live on Netlify</h3>
+          <p>Website is published and live — Dad can visit it anytime and use the password to see Sofia's daily summary.</p>
+        </div>
+      </div>
+
+      <div class="highlight">
+        <h2>Two websites in two days!</h2>
+        <p>Sofia's personal brand site is live AND Olivia's coffee tracker is built — all from scratch.</p>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <span>Sofia Lujan</span>
+      <p>Content Creator · Houston, TX</p>
+    </div>
+
+    <div style="text-align:center; padding: 24px 48px; border-top: 1px solid rgba(176,122,122,0.15);">
+      <button id="send-btn" onclick="sendToDad()" style="background:linear-gradient(135deg,#d4a5a5,#b07a7a);color:white;border:none;padding:16px 48px;border-radius:2px;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">
+        ✉ Send to Dad
+      </button>
+      <p id="send-status" style="margin-top:12px;font-size:0.85rem;color:#9e7e7e;min-height:20px;"></p>
+    </div>
+
+  </div>
+
+  <script>
+    async function sendToDad() {
+      const btn = document.getElementById('send-btn');
+      const status = document.getElementById('send-status');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const response = await fetch('/.netlify/functions/send-email', {
+          method: 'POST'
+        });
+        if (response.ok) {
+          status.textContent = '✓ Summary sent to Dad!';
+        } else {
+          status.textContent = 'Something went wrong. Try again!';
+        }
+      } catch(e) {
+        status.textContent = 'Something went wrong. Try again!';
+      }
+
+      btn.textContent = '✉ Send to Dad';
+      btn.disabled = false;
+    }
+  </script>
+</body>
+</html>

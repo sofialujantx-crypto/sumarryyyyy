@@ -1,0 +1,18 @@
+{
+  "name": "Olivia's Coffee Shop",
+  "short_name": "Olivia's Coffee",
+  "description": "Order coffee from Olivia's shop!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf6ec",
+  "theme_color": "#c8783a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

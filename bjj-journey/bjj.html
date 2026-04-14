@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BJJ Journey | Sofia Lujan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #fdf8f5;
+            color: #6b5c6b;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(253, 248, 245, 0.85);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: center;
+            gap: 0.2rem;
+            padding: 1.2rem 2rem;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: #9a8a9a;
+            text-decoration: none;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+
+        .navbar a:hover { color: #2d2433; }
+        .navbar a.active {
+            color: #e879a8;
+            background: rgba(232,121,168,0.08);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            background: radial-gradient(ellipse at center, #f5e8ef 0%, #fdf8f5 70%);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            letter-spacing: 4px;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #e879a8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            color: #9a8a9a;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .current-belt {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 60px;
+            padding: 12px 28px;
+            margin-top: 1rem;
+        }
+
+        .belt-icon {
+            width: 40px;
+            height: 12px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #888 50%, #111 50%);
+            border: 1px solid #555;
+        }
+
+        .current-belt span {
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #6b5c6b;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(180deg, rgba(232, 121, 168, 0.05), transparent);
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            color: #e879a8;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b0a0b0;
+            margin-top: 4px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-align: center;
+            padding: 4rem 2rem 2rem;
+            letter-spacing: 3px;
+            color: #2d2433;
+        }
+
+        .section-title span {
+            color: #e879a8;
+        }
+
+        /* Belt Timeline */
+        .belt-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .belt-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #e879a8, #a78bfa, transparent);
+            transform: translateX(-50%);
+        }
+
+        .belt-stage {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .belt-stage:nth-child(odd) {
+            flex-direction: row-reverse;
+        }
+
+        .belt-stage:nth-child(odd) .belt-info {
+            text-align: right;
+            padding-right: 3rem;
+            padding-left: 0;
+        }
+
+        .belt-stage:nth-child(even) .belt-info {
+            padding-left: 3rem;
+        }
+
+        .belt-info {
+            flex: 1;
+        }
+
+        .belt-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e879a8;
+            border: 3px solid #fdf8f5;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 20px rgba(232, 121, 168, 0.4);
+        }
+
+        .belt-dot.active {
+            width: 26px;
+            height: 26px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(232, 121, 168, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(232, 121, 168, 0.8); }
+        }
+
+        .belt-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .belt-date {
+            font-size: 0.85rem;
+            color: #a78bfa;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .belt-desc {
+            font-size: 0.9rem;
+            color: #9a8a9a;
+            line-height: 1.6;
+        }
+
+        .belt-bar {
+            display: inline-block;
+            width: 50px;
+            height: 14px;
+            border-radius: 3px;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-bottom: 8px;
+        }
+
+        /* Milestones */
+        .milestones {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .milestone-card {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .milestone-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(232, 121, 168, 0.3);
+        }
+
+        .milestone-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .milestone-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            color: #2d2433;
+        }
+
+        .milestone-date {
+            font-size: 0.8rem;
+            color: #a78bfa;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .milestone-desc {
+            font-size: 0.85rem;
+            color: #9a8a9a;
+            line-height: 1.6;
+        }
+
+        /* Training Log */
+        .training-log {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .log-entry {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            align-items: flex-start;
+        }
+
+        .log-date-box {
+            min-width: 70px;
+            text-align: center;
+            background: rgba(232, 121, 168, 0.1);
+            border-radius: 12px;
+            padding: 10px 8px;
+            flex-shrink: 0;
+        }
+
+        .log-month {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #e879a8;
+        }
+
+        .log-day {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            color: #2d2433;
+            line-height: 1;
+        }
+
+        .log-content h3 {
+            font-size: 1rem;
+            color: #2d2433;
+            margin-bottom: 4px;
+        }
+
+        .log-content p {
+            font-size: 0.85rem;
+            color: #9a8a9a;
+            line-height: 1.6;
+        }
+
+        .log-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .log-tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(192, 132, 252, 0.1);
+            color: #a78bfa;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Goals Section */
+        .goals {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .goal-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .goal-check {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #e879a8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .goal-check.done {
+            background: #e879a8;
+        }
+
+        .goal-check.done::after {
+            content: '✓';
+            color: #2d2433;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .goal-text {
+            font-size: 0.95rem;
+        }
+
+        .goal-text.done {
+            text-decoration: line-through;
+            color: #c4b8c4;
+        }
+
+        /* Competitions */
+        .competitions {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .comp-card {
+            background: rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .comp-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(232, 121, 168, 0.3);
+        }
+
+        .comp-medal {
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .comp-details h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: #2d2433;
+        }
+
+        .comp-date {
+            font-size: 0.8rem;
+            color: #a78bfa;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .comp-result {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .comp-result.medal {
+            background: rgba(232, 121, 168, 0.15);
+            color: #e879a8;
+        }
+
+        .comp-result.no-medal {
+            background: rgba(0, 0, 0, 0.06);
+            color: #9a8a9a;
+        }
+
+        .comp-recap {
+            font-size: 0.85rem;
+            color: #9a8a9a;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #333;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        footer span {
+            color: #e879a8;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .belt-timeline::before {
+                left: 20px;
+            }
+
+            .belt-stage,
+            .belt-stage:nth-child(odd) {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-left: 50px;
+            }
+
+            .belt-stage:nth-child(odd) .belt-info,
+            .belt-stage:nth-child(even) .belt-info {
+                text-align: left;
+                padding: 0;
+            }
+
+            .belt-dot {
+                left: 20px;
+            }
+
+            .stats-bar {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="bjj.html" class="active">BJJ Journey</a>
+        <a href="about.html">About Me</a>
+        <span style="color:rgba(255,255,255,0.15);">|</span>
+        <a href="#stats">Stats</a>
+        <a href="#belts">Belts</a>
+        <a href="#comps">Competitions</a>
+        <a href="#milestones">Milestones</a>
+        <a href="#log">Training Log</a>
+        <a href="#goals">Goals</a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>My BJJ Journey</h1>
+            <p class="subtitle">Tracking my progress on the mats ✨</p>
+            <div class="current-belt">
+                <div class="belt-icon"></div>
+                <span>Grey & Black Belt</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-bar" id="stats">
+        <div class="stat">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Years Training</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">800+</div>
+            <div class="stat-label">Classes</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">Competitions</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Belts Earned</div>
+        </div>
+    </section>
+
+    <!-- Belt Progress Timeline -->
+    <h2 class="section-title" id="belts">Belt <span>Progress</span></h2>
+    <section class="belt-timeline">
+
+        <div class="belt-stage">
+            <div class="belt-info">
+                <div class="belt-bar" style="background: #fff; border-color: #6b5c6b;"></div>
+                <div class="belt-name">White Belt</div>
+                <div class="belt-date">Day 1 - Where it all began</div>
+                <div class="belt-desc">Stepped on the mats for the first time. Learned how to shrimp, breakfall, and survive. Everything was confusing but exciting.</div>
+            </div>
+            <div class="belt-dot"></div>
+        </div>
+
+        <div class="belt-stage">
+            <div class="belt-info">
+                <div class="belt-bar" style="background: linear-gradient(to right, #888 50%, #fff 50%);"></div>
+                <div class="belt-name">Grey & White Belt</div>
+                <div class="belt-date">6 months in</div>
+                <div class="belt-desc">First promotion! Started understanding basic positions and escapes. Could finally hold my own during rolls.</div>
+            </div>
+            <div class="belt-dot"></div>
+        </div>
+
+        <div class="belt-stage">
+            <div class="belt-info">
+                <div class="belt-bar" style="background: linear-gradient(to right, #888 50%, #111 50%);"></div>
+                <div class="belt-name">Grey & Black Belt</div>
+                <div class="belt-date">Current Belt</div>
+                <div class="belt-desc">Working on chaining techniques together and developing my own game. Guard passing and submissions from top are my focus.</div>
+            </div>
+            <div class="belt-dot active"></div>
+        </div>
+
+        <div class="belt-stage">
+            <div class="belt-info">
+                <div class="belt-bar" style="background: linear-gradient(to right, #888 70%, #888 30%); opacity: 0.3;"></div>
+                <div class="belt-name" style="color: #c4b8c4;">Solid Grey Belt</div>
+                <div class="belt-date" style="color: #c4b8c4;">Next Goal</div>
+                <div class="belt-desc" style="color: #c4b8c4;">Keep training hard and the next belt will come!</div>
+            </div>
+            <div class="belt-dot" style="background: #ddd; box-shadow: none;"></div>
+        </div>
+
+    </section>
+
+    <!-- Milestones -->
+    <h2 class="section-title" id="milestones">Key <span>Milestones</span></h2>
+    <section class="milestones">
+        <div class="milestone-card">
+            <div class="milestone-emoji">🥋</div>
+            <div class="milestone-title">First Class Ever</div>
+            <div class="milestone-date">Add your date</div>
+            <div class="milestone-desc">Walked into the academy nervous but walked out hooked. Learned my first technique and knew this was for me.</div>
+        </div>
+        <div class="milestone-card">
+            <div class="milestone-emoji">🏆</div>
+            <div class="milestone-title">First Competition</div>
+            <div class="milestone-date">Add your date</div>
+            <div class="milestone-desc">Competed for the first time. Win or lose, stepping on that competition mat was a huge achievement.</div>
+        </div>
+        <div class="milestone-card">
+            <div class="milestone-emoji">💪</div>
+            <div class="milestone-title">First Submission in Sparring</div>
+            <div class="milestone-date">Add your date</div>
+            <div class="milestone-desc">Got my first real submission during a live roll. All those reps finally paid off!</div>
+        </div>
+        <div class="milestone-card">
+            <div class="milestone-emoji">🔥</div>
+            <div class="milestone-title">Belt Promotion</div>
+            <div class="milestone-date">Add your date</div>
+            <div class="milestone-desc">Earned my grey & black belt. Proof that consistency and hard work on the mats pays off.</div>
+        </div>
+    </section>
+
+    <!-- Competitions -->
+    <h2 class="section-title" id="comps">My <span>Competitions</span></h2>
+    <section class="competitions">
+        <div class="comp-card">
+            <div class="comp-medal">🥈</div>
+            <div class="comp-details">
+                <div class="comp-date">February 7, 2026</div>
+                <h3>Tournament #2</h3>
+                <div class="comp-result medal">Medaled</div>
+                <p class="comp-recap">Two matches. Won the first by armbar submission! Lost the second on points 2-0. Huge progress - first competition win and first sub in a tournament.</p>
+            </div>
+        </div>
+        <div class="comp-card">
+            <div class="comp-medal">🥊</div>
+            <div class="comp-details">
+                <div class="comp-date">November 8, 2025</div>
+                <h3>Tournament #1</h3>
+                <div class="comp-result no-medal">Experience gained</div>
+                <p class="comp-recap">First tournament ever. Lost on points but gained valuable competition experience. Learned what it feels like to compete under pressure.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Training Log -->
+    <h2 class="section-title" id="log">Training <span>Log</span></h2>
+    <section class="training-log">
+        <div class="log-entry">
+            <div class="log-date-box">
+                <div class="log-month">Apr</div>
+                <div class="log-day">01</div>
+            </div>
+            <div class="log-content">
+                <h3>Butterfly Guard to Back Take</h3>
+                <p>Drilled butterfly guard to back take. Worked on the entry, hooks, and getting to the back from butterfly position.</p>
+                <div class="log-tags">
+                    <span class="log-tag">Butterfly Guard</span>
+                    <span class="log-tag">Back Take</span>
+                    <span class="log-tag">Drilling</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Goals -->
+    <h2 class="section-title" id="goals">Current <span>Goals</span></h2>
+    <section class="goals">
+        <div class="goal-item">
+            <div class="goal-check done"></div>
+            <span class="goal-text done">Compete in my first tournament</span>
+        </div>
+        <div class="goal-item">
+            <div class="goal-check done"></div>
+            <span class="goal-text done">Land an arm bar in a live roll</span>
+        </div>
+        <div class="goal-item">
+            <div class="goal-check"></div>
+            <span class="goal-text">Develop a solid guard passing game</span>
+        </div>
+        <div class="goal-item">
+            <div class="goal-check"></div>
+            <span class="goal-text">Win a match by submission in competition</span>
+        </div>
+        <div class="goal-item">
+            <div class="goal-check"></div>
+            <span class="goal-text">Earn my next belt promotion</span>
+        </div>
+        <div class="goal-item">
+            <div class="goal-check"></div>
+            <span class="goal-text">Train 4x per week consistently</span>
+        </div>
+    </section>
+
+    <footer>
+        Made with <span>♥</span> by Sofia
+    </footer>
+
+</body>
+</html>
